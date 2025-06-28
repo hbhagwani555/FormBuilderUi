@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="container2">
+    <h2>Financial Aid Form</h2>
+   <p>Harsh Healthcare is dedicated to making quality healthcare accessible to everyone, especially those facing financial difficulties. We are committed to treating every patient with dignity, empathy, and respect throughout their care journey. Our financial assistance application is designed to ease financial burdens by assessing individual circumstances and providing support where it’s most needed. We believe that no one should delay care due to cost, and completing this form is the first step toward getting the help you deserve.</p>
+
+    
+    <p class="bold-text">Enter in information below to enter application.<p>
+    <form (ngSubmit)="onSubmit()" #patientForm="ngForm">
+        <div class="bold-text" style="margin-bottom: 8px;">Patient's Name</div>
+        <div class="form-group extra">
+        <label for="firstName">Legal First Name</label>
+        <input type="text" id="firstName" class="form-control" name="firstName" [(ngModel)]="patient.firstName"
+        #firstNameRef="ngModel"
+         required
+        pattern="^[a-zA-Z0-9]{1,25}$"
+        maxlength="25"
+        title="Only letters and digits are allowed, up to 25 characters" >
+        <div *ngIf="firstNameRef.invalid && firstNameRef.touched" class="text-danger">
+        <small *ngIf="firstNameRef.errors?.['required']">First Name is required.</small>
+        <small *ngIf="firstNameRef.errors?.['pattern']">Only letters and digits are allowed (max 25 characters).</small>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="lastName">Legal Last Name</label>
+        <input type="text" id="lastName" class="form-control" name="lastName" [(ngModel)]="patient.lastName" 
+        #lastNameRef="ngModel"
+        pattern="^[a-zA-Z0-9]{1,25}$"
+        maxlength="25"
+        title="Only letters and digits are allowed, up to 25 characters"
+        required>
+        <div *ngIf="lastNameRef.invalid && lastNameRef.touched" class="text-danger">
+        <small *ngIf="lastNameRef.errors?.['required']">Last Name is required.</small>
+        <small *ngIf="lastNameRef.errors?.['pattern']">Only letters and digits are allowed (max 25 characters).</small>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="dob">Patient's Date of Birth</label>
+        <input type="date" id="dob" class="form-control" name="dob" [(ngModel)]="patient.dob" #dobRef="ngModel" required>
+        <div class="description">dd-mm-yyyy</div>
+        <div *ngIf="dobRef.invalid && dobRef.touched" class="text-danger">
+        <small *ngIf="dobRef.errors?.['required']">DOB is required.</small>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="box3">
+        <label for="phoneNumber">Phone Number</label>
+              <span class="tooltip-container">
+                <img src="assets/error.svg" class="tooltip-icon">
+                <div class="tooltip-box">
+                    Please enter a 10-digit phone number without the country code.
+                </div>
+                </span>
+        </div>
+        <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber" [(ngModel)]="patient.phoneNumber"
+         required
+         #phoneNumRef="ngModel"
+         pattern="^\d{10}$"
+        maxlength="10">
+        <div *ngIf="phoneNumRef.invalid && phoneNumRef.touched" class="text-danger">
+        <small *ngIf="phoneNumRef.errors?.['required']">Phone Number is required.</small>
+         <small *ngIf="phoneNumRef.errors?.['pattern']">Please enter a valid 10-digit phone number (numbers only).</small>
+        </div>
+        </div>
+        <app-captcha (resolved)="handleCaptcha($event)"></app-captcha>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</div>

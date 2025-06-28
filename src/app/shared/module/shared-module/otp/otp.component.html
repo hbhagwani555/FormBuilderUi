@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="container2">
+    <div class="otp-container">
+      <h2>OTP Verification</h2>
+      <p>Please enter the 4-digit code sent to your mobile number.</p>
+
+      <label for="otp">Enter OTP below</label>
+
+      <!-- Hidden actual input -->
+       <input
+       name="otp"
+      [(ngModel)]="otp"
+        #otpRef="ngModel"
+        type="text"
+        maxlength="4"
+        inputmode="numeric"
+        class="otp-input"
+        placeholder="_ _ _ _"
+    />
+
+      <!-- Validation message -->
+      <div *ngIf="otpRef?.invalid && otpRef?.touched" class="text-danger">
+        <small *ngIf="otpRef?.errors?.['required']">OTP is required.</small>
+        <small *ngIf="otpRef?.errors?.['pattern']">OTP must be exactly 4 digits.</small>
+      </div>
+    </div>
+  </div>
+</div>
